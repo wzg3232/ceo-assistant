@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.pyc
+backend/.venv/
+venv/
+
+# Node / 前端构建
+frontend/node_modules/
+frontend/dist/
+frontend/dist.bak-*/
+
+# 敏感数据（不入库）
+backend/files/
+backups/
+backend/audit_data.db
+audit_results*.json
+backend/audit_results*.json
+backend/api_response.json
+backend/audit_*.json
+debug_*.json
+uvicorn.log
+backend/logs/
+*.log
+
+# 环境变量
+.env
+.env.local
+
+# 开发期备份文件
+*.bak-*

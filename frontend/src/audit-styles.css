@@ -1,0 +1,50 @@
+/* 审核结果样式 */
+.audit-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.audit-item.pass {
+  background: #f0fdf4;
+  border: 1px solid #86efac;
+}
+
+.audit-item.fail {
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+}
+
+.audit-item-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.audit-icon {
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.audit-label {
+  font-weight: 600;
+  color: #374151;
+  flex-shrink: 0;
+}
+
+.audit-message {
+  color: #4b5563;
+}
+
+/* 审核详情样式 */
+.audit-detail {
+  font-size: 12px;
+  color: #6b7280;
+  padding-left: 22px;
+  line-height: 1.4;
+}
