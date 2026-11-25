@@ -116,6 +116,7 @@ function App() {
   };
 
   // 事件驱动刷新：后端在写入 Postgres 后推送通知，前端收到即重新拉取列表
+  // 另加 30s 轮询兜底：SSE ping 只在 B机 8002 生效，其他机器的面板靠轮询保持自动更新
   const loadDataRef = useRef<(auto?: boolean) => void>(() => {});
   loadDataRef.current = loadData;
   useEffect(() => {
@@ -126,7 +127,8 @@ function App() {
     } catch (e) {
       console.warn('事件刷新通道不可用:', e);
     }
-    return () => { if (es) es.close(); };
+    const poll = window.setInterval(() => loadDataRef.current(true), 30000);
+    return () => { if (es) es.close(); window.clearInterval(poll); };
   }, []);
 
   // 部门口径统计 (2026-11-24): 统计卡跟随左侧部门筛选, 不再用全量 stats
