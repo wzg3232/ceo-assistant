@@ -80,6 +80,47 @@ npm run dev        # http://localhost:5173
 - ✅ 搜索/筛选（发票类型、日期、发票号），筛选变更自动清空已勾选
 - ✅ WebSocket 实时推送
 
+## 分支约定
+
+本项目采用两条分支，约定如下：
+
+| 分支 | 用途 | 说明 |
+|------|------|------|
+| `dev` | 日常开发 | 所有新功能、改 bug、加字段都先提交到 `dev`，在 `dev` 上验证通过 |
+| `main` | 稳定可跑版本 | 只接收来自 `dev` 的合并，克隆下来即可直接部署生产（如 8002 面板） |
+
+### 合并流程
+
+1. 日常开发一律在 `dev` 上进行：
+
+   ```bash
+   git checkout dev
+   # ... 改代码、本地验证 ...
+   git add -A && git commit -m "feat: xxx"
+   git push origin dev
+   ```
+
+2. `dev` 验证 OK 后合并到 `main`：
+
+   ```bash
+   git checkout main
+   git merge dev        # 内容一致时会是 fast-forward
+   git push origin main
+   ```
+
+3. 合并 `main` 后如需更新生产部署，按「快速开始」重新构建并同步：
+
+   ```bash
+   cd frontend && npm run build
+   # 同步 frontend/dist 到生产目录并重启 8002 (见 start.sh)
+   ```
+
+### 规则
+
+- **不允许**直接在 `main` 上提交未经 `dev` 验证的代码
+- `main` 随时保持可部署状态；出了问题就回退到上一个好的 commit
+- 生产环境（如 8002）只运行 `main` 分支的代码
+
 ## 安全说明
 
 - 飞书应用凭据与数据库密码**一律不硬编码**，只从环境变量读取；`.env` 已被 git 忽略
